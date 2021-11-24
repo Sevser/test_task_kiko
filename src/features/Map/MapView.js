@@ -17,7 +17,7 @@ export function MapView({ lat, lng }) {
   let timeout = null;
 
   const setLocationToUrl = () => {
-    const query = { lat: center.lat.toPrecision(5), lng: center.lng.toPrecision(5) };
+    const query = { lat: center.lat.toPrecision(8), lng: center.lng.toPrecision(8) };
     const searchString = qs.stringify(query);
     if (lat !== center.lat || lng !== center.lng) {
       if (timeout) {
@@ -40,7 +40,7 @@ export function MapView({ lat, lng }) {
 
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyBtYHtK2pidypWtxIFoUda0weHxcx_czyo"
+      googleMapsApiKey="APIKEY"
     >
       <GoogleMap
         onLoad={map => setMapRef(map)}
