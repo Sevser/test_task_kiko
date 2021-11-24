@@ -3,6 +3,7 @@ import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import qs from 'querystring';
 import { useNavigate } from 'react-router-dom';
 import {debounce} from '../../utills/debounce';
+import env from "react-dotenv";
 
 const containerStyle = {
   width: '100%',
@@ -40,7 +41,7 @@ export function MapView({ lat, lng }) {
 
   return (
     <LoadScript
-      googleMapsApiKey="APIKEY"
+      googleMapsApiKey={env.GOOGLE_MAPS_API_KEY}
     >
       <GoogleMap
         onLoad={map => setMapRef(map)}
