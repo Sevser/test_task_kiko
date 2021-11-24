@@ -1,0 +1,18 @@
+html, body, #root, .App, .main-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.App .main-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
