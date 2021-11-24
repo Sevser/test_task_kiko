@@ -1,0 +1,27 @@
+.map-left-panel-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 360px;
+    overflow: hidden;
+    background: white;
+    z-index: 1;
+}
+
+.header {
+    height: 60px;
+    background: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: calc(100vh - 60px);
+    overflow: auto;
+    flex-direction: column;
+}

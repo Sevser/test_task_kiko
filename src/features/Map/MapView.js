@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import qs from 'querystring';
 import { useNavigate } from 'react-router-dom';
-import {debounce} from '../../utills/debounce';
 import env from "react-dotenv";
 
 const containerStyle = {

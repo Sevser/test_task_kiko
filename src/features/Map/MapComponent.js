@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import styles from './MapComponent.module.css';
 import MapView from './MapView';
 import {useLocation} from 'react-router-dom';
+import {MapLeftPanel} from './MapLeftPanel/MapLeftPanel';
 
 // A custom hook that builds on useLocation to parse
 // the query string for you.
@@ -18,6 +19,7 @@ export function MapComponent() {
 
   return (
     <div className={styles.container}>
+      <MapLeftPanel />
       <MapView
         lat={lat}
         lng={lng}
