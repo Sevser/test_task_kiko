@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/test_task_kiko/static/css/main.cd0676c3.chunk.css",
+    "main.js": "/test_task_kiko/static/js/main.f4dd087b.chunk.js",
+    "main.js.map": "/test_task_kiko/static/js/main.f4dd087b.chunk.js.map",
+    "runtime-main.js": "/test_task_kiko/static/js/runtime-main.ff37dd9c.js",
+    "runtime-main.js.map": "/test_task_kiko/static/js/runtime-main.ff37dd9c.js.map",
+    "static/js/2.ad4d6ed8.chunk.js": "/test_task_kiko/static/js/2.ad4d6ed8.chunk.js",
+    "static/js/2.ad4d6ed8.chunk.js.map": "/test_task_kiko/static/js/2.ad4d6ed8.chunk.js.map",
+    "index.html": "/test_task_kiko/index.html",
+    "static/css/main.cd0676c3.chunk.css.map": "/test_task_kiko/static/css/main.cd0676c3.chunk.css.map",
+    "static/js/2.ad4d6ed8.chunk.js.LICENSE.txt": "/test_task_kiko/static/js/2.ad4d6ed8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ff37dd9c.js",
+    "static/js/2.ad4d6ed8.chunk.js",
+    "static/css/main.cd0676c3.chunk.css",
+    "static/js/main.f4dd087b.chunk.js"
+  ]
+}
