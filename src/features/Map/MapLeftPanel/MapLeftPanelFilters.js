@@ -31,7 +31,7 @@ export function MapLeftPanelFilters() {
     <div className={styles.container}>
       <div className={styles['field-container']}>
         <div className={styles.label}>
-          Select type of objects
+          Select type of places
         </div>
         <select
           onChange={updateSelectedValue}

@@ -1,4 +1,5 @@
 {
+  "homepage": "https://Sevser.github.io/test_task_kiko",
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
@@ -18,6 +19,8 @@
     "react-scripts": "4.0.3"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-dotenv && react-scripts start",
     "build": "react-dotenv && react-scripts build",
     "test": "react-dotenv && react-scripts test",
@@ -44,5 +47,8 @@
       "GOOGLE_MAPS_API_KEY",
       "GOOGLE_PLACES_API_KEY"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
