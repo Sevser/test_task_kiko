@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, getDefaultMiddleware} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   provider: null,
@@ -17,7 +17,6 @@ export const nearbySearch = createAsyncThunk(
     const type = getState().places.placeType;
     const location = getState().places.location;
     const radius = getState().places.radius;
-    console.log(location, radius);
     provider.nearbySearch({
       location,
       radius,
@@ -58,9 +57,6 @@ export const placesSlice = createSlice({
         console.log(state.nearbyPlaces);
       });
   },
-  middleware: getDefaultMiddleware({
-    serializableCheck: false
-  }),
 });
 
 export const {

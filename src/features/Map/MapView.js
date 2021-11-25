@@ -79,7 +79,7 @@ export function MapView({ lat, lng }) {
         onLoad={map => updateMapReference(map)}
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={15}
         onCenterChanged={updateLocation}
         onTilesLoaded={fireLoadingObjects}
       >

@@ -8,11 +8,13 @@ export function ViewPlaceInformation() {
   const currentPlace = useSelector(selectCurrentPlace);
   return (
     <div className={styles['view-place-information-container']}>
-      <div className={styles['field-container']}>
-        <div className={styles['field-value']}>
-          {currentPlace ? currentPlace.name: ''}
+      {
+        currentPlace && <div className={styles['field-container']}>
+          <div className={styles['field-value']}>
+            {currentPlace ? currentPlace.name: ''}
+          </div>
         </div>
-      </div>
+      }
       { currentPlace && currentPlace.photos ?
         <div className={styles['field-container']}>
           <div className={styles['field-label']}>
@@ -28,23 +30,29 @@ export function ViewPlaceInformation() {
           </div>
         </div>
         : ''}
-      <div className={styles['field-container']}>
-        <div className={styles['field-label']}>
-          Status
+      {
+        currentPlace && <div className={styles['field-container']}>
+          <div className={styles['field-label']}>
+            Status
+          </div>
+          <div className={styles['field-value']}>
+            {currentPlace ? businessStatusEnum[currentPlace.business_status] : ''}
+          </div>
         </div>
-        <div className={styles['field-value']}>
-          {currentPlace ? businessStatusEnum[currentPlace.business_status]: ''}
+      }
+      {
+        currentPlace && <div className={styles['field-container']}>
+          <div className={styles['field-label']}>
+            Vicinity
+          </div>
+          <div className={styles['field-value']}>
+            {currentPlace ? currentPlace.vicinity: ''}
+          </div>
         </div>
-      </div>
-      <div className={styles['field-container']}>
-        <div className={styles['field-label']}>
-          Vicinity
-        </div>
-        <div className={styles['field-value']}>
-          {currentPlace ? currentPlace.vicinity: ''}
-        </div>
-      </div>
-
+      }
+      {
+        !currentPlace && <div>Click on pin on the map to see details</div>
+      }
     </div>
   );
 }

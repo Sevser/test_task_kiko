@@ -21,7 +21,6 @@
 .image {
     margin-bottom: 10px;
     width: 100%;
-    cursor: pointer;
 }
 .image:hover {
     -webkit-box-shadow: 4px 4px 18px 10px rgba(34, 60, 80, 0.2);
