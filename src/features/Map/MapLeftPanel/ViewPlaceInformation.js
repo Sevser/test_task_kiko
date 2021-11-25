@@ -3,9 +3,12 @@ import styles from './ViewPlaceInformation.module.css';
 import {useSelector} from 'react-redux';
 import {selectCurrentPlace} from '../Places/placesSlice';
 import businessStatusEnum from '../../../enums/gPlaces/businessStatusEnum';
+import {useQuery} from '../../../utills/useQuery';
 
 export function ViewPlaceInformation() {
+  const query = useQuery();
   const currentPlace = useSelector(selectCurrentPlace);
+
   return (
     <div className={styles['view-place-information-container']}>
       {
@@ -15,7 +18,7 @@ export function ViewPlaceInformation() {
           </div>
         </div>
       }
-      { currentPlace && currentPlace.photos ?
+      { currentPlace && currentPlace.photos && currentPlace.photos.length ?
         <div className={styles['field-container']}>
           <div className={styles['field-label']}>
             Photo's
@@ -26,7 +29,7 @@ export function ViewPlaceInformation() {
                 className={styles.image}
                 key={index}
                 alt="place"
-                src={photo.getUrl()}/>)}
+                src={photo.url}/>)}
           </div>
         </div>
         : ''}

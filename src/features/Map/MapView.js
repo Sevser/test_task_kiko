@@ -7,9 +7,12 @@ import qs from 'querystring';
 import { useNavigate } from 'react-router-dom';
 import env from "react-dotenv";
 import {useDispatch} from 'react-redux';
-import {nearbySearch, setLocation, setPlacesProvider, setRadius} from './Places/placesSlice';
+import {nearbySearch, setLocation, setRadius} from './Places/placesSlice';
 import {MapLeftPanel} from './MapLeftPanel/MapLeftPanel';
 import {MapViewPlaces} from './MapViewPlaces';
+import {useQuery} from '../../utills/useQuery';
+import {createNavigation} from '../../utills/createNavigation';
+import {placeProvider} from './Places/placeProvider';
 
 const containerStyle = {
   width: '100%',
@@ -17,6 +20,7 @@ const containerStyle = {
 };
 
 export function MapView({ lat, lng }) {
+  const query = useQuery();
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: env.GOOGLE_MAPS_API_KEY,
     libraries: ['places', 'geometry'],
@@ -39,21 +43,25 @@ export function MapView({ lat, lng }) {
   };
 
   const fireLoadingObjects = () => {
-    dispatch(setLocation(mapRef.getCenter()));
+    dispatch(setLocation({
+      lat: mapRef.getCenter().lat(),
+      lng: mapRef.getCenter().lng(),
+    }));
     dispatch(setRadius(calcRadius()));
     dispatch(nearbySearch());
   };
 
   const setLocationToUrl = () => {
-    const query = { lat: center.lat.toPrecision(8), lng: center.lng.toPrecision(8) };
-    const searchString = qs.stringify(query);
     if (lat !== center.lat || lng !== center.lng) {
       if (timeout) {
         clearTimeout(timeout);
       }
       timeout = setTimeout(() => {
         navigate({
-          search: searchString,
+          search: createNavigation({
+            lat: center.lat.toPrecision(8),
+            lng: center.lng.toPrecision(8),
+          }),
         });
         dispatch(setLocation(center));
         dispatch(setRadius(calcRadius()));
@@ -71,7 +79,7 @@ export function MapView({ lat, lng }) {
 
   const updateMapReference = ref => {
     setMapRef(ref);
-    dispatch(setPlacesProvider(new window.google.maps.places.PlacesService(ref)));
+    placeProvider.injectProvider(new window.google.maps.places.PlacesService(ref));
   }
 
   return (isLoaded ?

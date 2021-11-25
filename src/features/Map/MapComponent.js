@@ -2,14 +2,9 @@ import React from 'react';
 import styles from './MapComponent.module.css';
 import MapView from './MapView';
 import {useLocation} from 'react-router-dom';
+import {useQuery} from '../../utills/useQuery';
 
-// A custom hook that builds on useLocation to parse
-// the query string for you.
-function useQuery() {
-  const { search } = useLocation();
 
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-}
 
 export function MapComponent() {
   let query = useQuery();

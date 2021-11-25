@@ -3,9 +3,12 @@ import styles from './MapViewPlaces.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectNearbyPlaces, setCurrentPlace} from './Places/placesSlice';
 import {Marker, useGoogleMap} from '@react-google-maps/api';
+import {createNavigation} from '../../utills/createNavigation';
+import {useNavigate} from 'react-router-dom';
 
 export function MapViewPlaces() {
   const map = useGoogleMap();
+  const navigate = useNavigate();
   const places = useSelector(selectNearbyPlaces);
   const dispatch = useDispatch();
 
