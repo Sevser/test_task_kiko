@@ -1,8 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  useJsApiLoader,
+} from '@react-google-maps/api';
 import qs from 'querystring';
 import { useNavigate } from 'react-router-dom';
 import env from "react-dotenv";
+import {useDispatch, useSelector} from 'react-redux';
+import {nearbySearch, placesProvider, setPlacesProvider} from './Places/placesSlice';
+import {MapLeftPanel} from './MapLeftPanel/MapLeftPanel';
+import {MapViewPlaces} from './MapViewPlaces';
 
 const containerStyle = {
   width: '100%',
@@ -10,6 +17,11 @@ const containerStyle = {
 };
 
 export function MapView({ lat, lng }) {
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: env.GOOGLE_MAPS_API_KEY,
+    libraries: ['places'],
+  });
+  const dispatch = useDispatch();
   const [mapRef, setMapRef] = useState(null);
   let navigate = useNavigate();
   let center = { lat, lng };
@@ -27,6 +39,11 @@ export function MapView({ lat, lng }) {
         navigate({
           search: searchString,
         });
+        dispatch(nearbySearch({
+          location: center,
+          radius: '1500',
+          type: ['restaurant']
+        }))
       }, 500);
     }
   };
@@ -38,20 +55,23 @@ export function MapView({ lat, lng }) {
     }
   };
 
-  return (
-    <LoadScript
-      googleMapsApiKey={env.GOOGLE_MAPS_API_KEY}
-    >
+  const updateMapReference = ref => {
+    setMapRef(ref);
+    dispatch(setPlacesProvider(new window.google.maps.places.PlacesService(ref)));
+  }
+
+  return (isLoaded ?
       <GoogleMap
-        onLoad={map => setMapRef(map)}
+        onLoad={map => updateMapReference(map)}
         mapContainerStyle={containerStyle}
         center={center}
         zoom={10}
         onCenterChanged={updateLocation}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
-      </GoogleMap>
-    </LoadScript>
+        <MapLeftPanel />
+        <MapViewPlaces />
+      </GoogleMap> :
+      ''
   )
 }
 
