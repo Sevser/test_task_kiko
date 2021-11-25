@@ -24,4 +24,5 @@
     max-height: calc(100vh - 60px);
     overflow: auto;
     flex-direction: column;
+    overflow-x: hidden;
 }

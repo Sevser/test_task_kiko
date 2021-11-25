@@ -1,0 +1,4 @@
+.view-place-information-container {
+    display: flex;
+    flex-direction: column;
+}

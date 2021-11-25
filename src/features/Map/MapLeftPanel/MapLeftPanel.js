@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import styles from './MapLeftPanel.module.css';
 import {MapLeftPanelFilters} from './MapLeftPanelFilters';
+import {ViewPlaceInformation} from './ViewPlaceInformation';
 
 export function MapLeftPanel() {
   return (
@@ -10,7 +11,7 @@ export function MapLeftPanel() {
       </div>
       <MapLeftPanelFilters />
       <div className={styles['content-container']}>
-        some information
+        <ViewPlaceInformation />
       </div>
     </div>
   );

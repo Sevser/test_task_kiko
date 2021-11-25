@@ -4,6 +4,7 @@ const initialState = {
   provider: null,
   nearbyPlaces: [],
   nearbyPlacesStatus: 'idle',
+  currentPlace: null,
 };
 
 export const nearbySearch = createAsyncThunk(
@@ -12,7 +13,7 @@ export const nearbySearch = createAsyncThunk(
     const provider = getState().places.provider;
     provider.nearbySearch({
       ...params,
-      fields: ['name', 'rating', 'formatted_phone_number', 'geometry']
+      fields: ['address_component', 'adr_address', 'type', 'url', 'website']
     }, resolve);
   })
 );
@@ -21,8 +22,11 @@ export const placesSlice = createSlice({
   name: 'places',
   initialState,
   reducers: {
-    setPlacesProvider(state, provider) {
-      state.provider = provider.payload;
+    setPlacesProvider(state, action) {
+      state.provider = action.payload;
+    },
+    setCurrentPlace(state, action) {
+      state.currentPlace = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -43,9 +47,11 @@ export const placesSlice = createSlice({
 
 export const {
   setPlacesProvider,
+  setCurrentPlace,
 } = placesSlice.actions;
 
 export const selectNearbyPlaces = (state) => state.places.nearbyPlaces;
 export const placesProvider = (state) => state.places.provider;
+export const selectCurrentPlace = (state) => state.places.currentPlace;
 
 export default placesSlice.reducer;
