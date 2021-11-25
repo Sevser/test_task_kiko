@@ -7,7 +7,7 @@ const initialState = {
   currentPlace: null,
   placeType: 'accounting',
   location: null,
-  radius: '1500',
+  radius: '150000',
 };
 
 export const nearbySearch = createAsyncThunk(
@@ -17,6 +17,7 @@ export const nearbySearch = createAsyncThunk(
     const type = getState().places.placeType;
     const location = getState().places.location;
     const radius = getState().places.radius;
+    console.log(location, radius);
     provider.nearbySearch({
       location,
       radius,
@@ -41,6 +42,9 @@ export const placesSlice = createSlice({
     },
     setLocation(state, action) {
       state.location = action.payload;
+    },
+    setRadius(state, action) {
+      state.radius = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -64,6 +68,7 @@ export const {
   setCurrentPlace,
   setPlaceType,
   setLocation,
+  setRadius,
 } = placesSlice.actions;
 
 export const selectNearbyPlaces = (state) => state.places.nearbyPlaces;

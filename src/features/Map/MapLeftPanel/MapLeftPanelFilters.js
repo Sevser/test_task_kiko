@@ -23,7 +23,9 @@ export function MapLeftPanelFilters() {
           onChange={updateSelectedValue}
           value={placeType}>
           {typesArray.map(({ value, label }) =>
-            <option value={value}>{label}</option>)}
+            <option
+              key={value}
+              value={value}>{label}</option>)}
         </select>
       </div>
     </div>

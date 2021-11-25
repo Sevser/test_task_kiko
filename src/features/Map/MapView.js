@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
   GoogleMap,
   useJsApiLoader,
@@ -7,7 +7,7 @@ import qs from 'querystring';
 import { useNavigate } from 'react-router-dom';
 import env from "react-dotenv";
 import {useDispatch} from 'react-redux';
-import {nearbySearch, setLocation, setPlacesProvider} from './Places/placesSlice';
+import {nearbySearch, setLocation, setPlacesProvider, setRadius} from './Places/placesSlice';
 import {MapLeftPanel} from './MapLeftPanel/MapLeftPanel';
 import {MapViewPlaces} from './MapViewPlaces';
 
@@ -19,13 +19,30 @@ const containerStyle = {
 export function MapView({ lat, lng }) {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: env.GOOGLE_MAPS_API_KEY,
-    libraries: ['places'],
+    libraries: ['places', 'geometry'],
   });
   const dispatch = useDispatch();
   const [mapRef, setMapRef] = useState(null);
   let navigate = useNavigate();
   let center = { lat, lng };
   let timeout = null;
+  let initialDataRequested = false;
+
+  const calcRadius = () => {
+    const center = mapRef.getCenter();
+    const bounds = mapRef.getBounds();
+    if (bounds && center) {
+      const ne = bounds.getNorthEast();
+      return window.google.maps.geometry.spherical.computeDistanceBetween(center, ne);
+    }
+    return 1500;
+  };
+
+  const fireLoadingObjects = () => {
+    dispatch(setLocation(mapRef.getCenter()));
+    dispatch(setRadius(calcRadius()));
+    dispatch(nearbySearch());
+  };
 
   const setLocationToUrl = () => {
     const query = { lat: center.lat.toPrecision(8), lng: center.lng.toPrecision(8) };
@@ -39,6 +56,7 @@ export function MapView({ lat, lng }) {
           search: searchString,
         });
         dispatch(setLocation(center));
+        dispatch(setRadius(calcRadius()));
         dispatch(nearbySearch());
       }, 500);
     }
@@ -63,6 +81,7 @@ export function MapView({ lat, lng }) {
         center={center}
         zoom={10}
         onCenterChanged={updateLocation}
+        onTilesLoaded={fireLoadingObjects}
       >
         <MapLeftPanel />
         <MapViewPlaces />

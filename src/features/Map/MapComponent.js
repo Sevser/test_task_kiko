@@ -13,7 +13,7 @@ function useQuery() {
 
 export function MapComponent() {
   let query = useQuery();
-  let lat = query.get("lat") && !isNaN(parseFloat(query.get("lat"))) ? parseFloat(query.get("lat")): 0;
+  let lat = query.get("lat") && !isNaN(parseFloat(query.get("lat"))) ? parseFloat(query.get("lat")): 51.488028;
   let lng = query.get("lng") && !isNaN(parseFloat(query.get("lng"))) ? parseFloat(query.get("lng")): 0;
 
   return (
