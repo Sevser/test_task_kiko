@@ -69,6 +69,7 @@ export const placesSlice = createSlice({
       .addCase(nearbySearch.fulfilled, (state, action) => {
         state.nearbyPlacesStatus = 'success';
         state.nearbyPlaces = action.payload;
+        state.currentPlace = null;
       });
   },
 });
