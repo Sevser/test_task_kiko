@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './MapLeftPanel.module.css';
 import {MapLeftPanelFilters} from './MapLeftPanelFilters';
 import {ViewPlaceInformation} from './ViewPlaceInformation';

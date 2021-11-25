@@ -1,17 +1,31 @@
 import React from 'react';
 import styles from './MapLeftPanelFilters.module.css';
-import {Autocomplete} from '@react-google-maps/api';
+import typesEnum from '../../../enums/gPlaces/typesEnum';
+import {useDispatch, useSelector} from 'react-redux';
+import {nearbySearch, selectPlaceType, setPlaceType} from '../Places/placesSlice';
 
 export function MapLeftPanelFilters() {
-  let autocomplete = null;
+  const typesArray = Object.keys(typesEnum).map(key => ({ value: key, label: typesEnum[key] }));
+  const dispatch = useDispatch();
+  const updateSelectedValue = (newVal) => {
+    dispatch(setPlaceType(newVal.target.value));
+    dispatch(nearbySearch());
+  };
+  const placeType = useSelector(selectPlaceType);
+
   return (
     <div className={styles.container}>
-      <select>
-        <option value="grapefruit">Грейпфрут</option>
-        <option value="lime">Лайм</option>
-        <option selected value="coconut">Кокос</option>
-        <option value="mango">Манго</option>
-      </select>
+      <div className={styles['field-container']}>
+        <div className={styles.label}>
+          Select type of objects
+        </div>
+        <select
+          onChange={updateSelectedValue}
+          value={placeType}>
+          {typesArray.map(({ value, label }) =>
+            <option value={value}>{label}</option>)}
+        </select>
+      </div>
     </div>
   );
 }

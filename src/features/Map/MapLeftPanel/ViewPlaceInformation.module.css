@@ -1,4 +1,30 @@
 .view-place-information-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.field-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.image {
+    margin-bottom: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+.image:hover {
+    -webkit-box-shadow: 4px 4px 18px 10px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 18px 10px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 18px 10px rgba(34, 60, 80, 0.2);
 }

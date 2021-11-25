@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './MapComponent.module.css';
 import MapView from './MapView';
 import {useLocation} from 'react-router-dom';

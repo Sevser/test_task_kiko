@@ -3,8 +3,6 @@ import './App.css';
 import { MapComponent } from './features/Map/MapComponent';
 import {
   BrowserRouter as Router,
-  Link,
-  useLocation
 } from "react-router-dom";
 
 function App() {

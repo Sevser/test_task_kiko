@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {
   GoogleMap,
   useJsApiLoader,
@@ -6,8 +6,8 @@ import {
 import qs from 'querystring';
 import { useNavigate } from 'react-router-dom';
 import env from "react-dotenv";
-import {useDispatch, useSelector} from 'react-redux';
-import {nearbySearch, placesProvider, setPlacesProvider} from './Places/placesSlice';
+import {useDispatch} from 'react-redux';
+import {nearbySearch, setLocation, setPlacesProvider} from './Places/placesSlice';
 import {MapLeftPanel} from './MapLeftPanel/MapLeftPanel';
 import {MapViewPlaces} from './MapViewPlaces';
 
@@ -25,7 +25,6 @@ export function MapView({ lat, lng }) {
   const [mapRef, setMapRef] = useState(null);
   let navigate = useNavigate();
   let center = { lat, lng };
-  let ref;
   let timeout = null;
 
   const setLocationToUrl = () => {
@@ -39,11 +38,8 @@ export function MapView({ lat, lng }) {
         navigate({
           search: searchString,
         });
-        dispatch(nearbySearch({
-          location: center,
-          radius: '1500',
-          type: ['restaurant']
-        }))
+        dispatch(setLocation(center));
+        dispatch(nearbySearch());
       }, 500);
     }
   };
@@ -71,7 +67,7 @@ export function MapView({ lat, lng }) {
         <MapLeftPanel />
         <MapViewPlaces />
       </GoogleMap> :
-      ''
+      loadError ? <div>{loadError}</div> : ''
   )
 }
 
